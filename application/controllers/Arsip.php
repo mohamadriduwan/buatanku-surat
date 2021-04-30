@@ -39,20 +39,23 @@ class Arsip extends CI_Controller
             $this->load->view('arsip/suratmasuk', $data);
             $this->load->view('templates/footer');
         } else {
+
             $upload_image = $_FILES['image']['name'];
+
             if ($upload_image) {
-                $config['allowed_types'] = 'gif|jpg|png';
+                $config['allowed_types'] = 'gif|jpg|png|pdf';
                 $config['max_size']      = '2048';
-                $config['upload_path'] = './assets/img/profile/';
+                $config['upload_path'] = './assets/img/surat_masuk/';
 
                 $this->load->library('upload', $config);
+
                 if ($this->upload->do_upload('image')) {
                     $old_image = $data['surat_masuk']['berkas_surat'];
                     if ($old_image != 'default.jpg') {
-                        unlink(FCPATH . 'assets/img/profile/' . $old_image);
+                        unlink(FCPATH . 'assets/img/surat_masuk/' . $old_image);
                     }
                     $new_image = $this->upload->data('file_name');
-                    $this->db->set('image', $new_image);
+                    $this->db->set('berkas_surat', $new_image);
                 } else {
                     echo $this->upload->dispay_errors();
                 }
@@ -69,7 +72,6 @@ class Arsip extends CI_Controller
                 'id_petugas' =>  1,
                 'sifat_surat' => $this->input->post('sifat_surat'),
                 'status_disposisi' => 0,
-                'berkas_surat' => $this->input->post('image'),
                 'dibuat_pada' => time()
             ];
 

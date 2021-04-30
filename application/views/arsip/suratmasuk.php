@@ -113,6 +113,7 @@
                 </button>
             </div>
             <br>
+            <?= form_open_multipart('arsip/suratmasuk'); ?>
             <form action="<?= base_url('arsip/suratmasuk'); ?>" method="post">
                 <div class="row">
                     <div class="col-md-6">

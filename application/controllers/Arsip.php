@@ -90,7 +90,7 @@ class Arsip extends CI_Controller
         $data['surat'] = $this->db->get('surat_masuk')->result_array();
         $this->form_validation->set_rules('id', 'Id', 'required');
         $balasid = $this->input->post('id');
-
+        $old_image = $this->db->get_where('surat_masuk', ['id' => $balasid])->result_array();
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -99,8 +99,8 @@ class Arsip extends CI_Controller
             $this->load->view('arsip/suratmasuk', $data);
             $this->load->view('templates/footer');
         } else {
-            $id = $this->input->post('id');
             $this->db->delete('surat_masuk', ['id' => $balasid]);
+            unlink(base_url('assets/img/surat_masuk/' . $old_image['berkas_surat']));
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Surat Masuk berhasil dihapus!</div>');
             redirect('arsip/suratmasuk');
         }

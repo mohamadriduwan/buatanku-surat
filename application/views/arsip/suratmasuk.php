@@ -119,18 +119,18 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>No. Surat</label>
-                            <input type="text" name="no_surat" class="form-control" />
+                            <input type="text" name="no_surat" class="form-control">
                         </div>
 
                         <div class="form-group">
                             <label>Perihal</label>
-                            <input type="text" name="perihal" class="form-control" />
+                            <input type="text" name="perihal" class="form-control">
                         </div>
 
                         <div class="form-group">
                             <label>Tanggal Surat</label>
                             <div class="input-group">
-                                <input type="date" name="tgl_surat" id="inputTglSurat" class="form-control" />
+                                <input type="date" name="tgl_surat" id="inputTglSurat" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -146,13 +146,13 @@
                         </div>
                         <div class="form-group">
                             <label>Pengirim</label>
-                            <input type="text" name="pengirim" class="form-control" />
+                            <input type="text" name="pengirim" class="form-control">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Ditujukan</label>
-                            <input type="text" name="ditujukan" class="form-control" />
+                            <input type="text" name="ditujukan" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Deskripsi</label>
@@ -192,22 +192,22 @@
 
 
 
-<!-- Delet -->
+<!-- Delete -->
 <?php $no = 0;
 foreach ($surat as $iz) : $no++; ?>
     <div class="modal fade" id="DeletSurat<?= $iz['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="DeletSuratLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="DeletSuratLabel">Delet</h5>
+                    <h5 class="modal-title" id="DeletSuratLabel">Hapus Surat Masuk</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
-                <form action="<?= base_url('surat/deletsuratmasuk'); ?>" method="post">
+                <form action="<?= base_url('arsip/deletsuratmasuk'); ?>" method="post">
                     <div class="modal-body">
-                        <p>Anda yakin untuk menghapus Balasan Surat Masuk Nomor <strong><?= $iz['no_surat']; ?></strong>?</p>
+                        <p>Anda yakin untuk menghapus Surat Masuk Nomor <strong><?= $iz['no_surat']; ?></strong>?</p>
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="id" name="id" value="<?= $iz['id']; ?>">
                         </div>
@@ -216,6 +216,97 @@ foreach ($surat as $iz) : $no++; ?>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
                         <button type="submit" class="btn btn-primary">Ya</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
+<!-- EDIT Modal -->
+<?php $no = 0;
+foreach ($surat as $iz) : $no++; ?>
+    <div class="modal fade bd-example-modal-lg" id="EditSurat<?= $iz['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="EditSurat" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content" style="padding: 10px 20px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="EditSurat">Edit Surat Masuk</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <br>
+                <?= form_open_multipart('arsip/editsurat'); ?>
+                <form action="<?= base_url('arsip/editsurat'); ?>" method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>No. Surat</label>
+                                <input type="text" name="no_surat" class="form-control" value="<?= $iz['no_surat']; ?>">
+                            </div>
+
+                            <div class=" form-group">
+                                <label>Perihal</label>
+                                <input type="text" name="perihal" class="form-control" value="<?= $iz['perihal']; ?>">
+                            </div>
+
+                            <div class=" form-group">
+                                <label>Tanggal Surat</label>
+                                <div class="input-group">
+                                    <input type="date" name="tgl_surat" id="inputTglSurat" class="form-control" value="<?= $iz['tgl_surat']; ?>">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Jenis Surat</label>
+                                <select name="jenis_surat" class="form-control">
+                                    <option value="" selected="selected">-- Jenis Surat --</option>
+                                    <?php
+                                    foreach ($jenis_surat as $list) {
+                                        echo '<option value="' . $list->id_jenis_surat . '">' . $list->jenis_surat . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Pengirim</label>
+                                <input type="text" name="pengirim" class="form-control" value="<?= $iz['pengirim']; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Ditujukan</label>
+                                <input type="text" name="ditujukan" class="form-control" value="<?= $iz['ditujukan']; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label>Deskripsi</label>
+                                <textarea name="deskripsi" class="form-control" rows="2"><?= $iz['deskripsi']; ?></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label id="label-photo">Berkas</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="image" name="image">
+                                    <label class="custom-file-label" for="image">Choose file</label>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="form-group">
+                                    <label>Sifat Surat</label>
+                                    <select name="sifat_surat" class="form-control">
+                                        <option value="Rahasia">Rahasia</option>
+                                        <option value="Penting">Penting</option>
+                                        <option value="Segera">Segera</option>
+                                        <option value="Biasa" selected="selected">Biasa</option>
+
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
             </div>

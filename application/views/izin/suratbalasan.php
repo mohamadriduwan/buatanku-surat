@@ -15,8 +15,48 @@
 
             <?= $this->session->flashdata('message'); ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addBalasan">Add Surat Balasan</a>
+            <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#addBalasan">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus-circle"></i>
+                </span>
+                <span class="text">Tambah Surat Balasan</span>
+            </a>
+            <a href="#collapseOne" class="btn btn-success btn-icon-split mb-3" data-toggle="collapse">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file-pdf"></i>
+                </span>
+                <span class="text">Laporan Surat Balasan</span>
+            </a>
+            <div id="collapseOne" class="collapse col-md-9">
+                <div class="panel-body">
+                    <hr>
+                    <form class="form-inline" action="<?php echo site_url('laporan/print_pdf/1') ?>" target="_blank" method="get">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p>Berdasarkan status Surat</p>
+                                <select name="status_surat" class="form-control">
+                                    <option value="3" selected="selected">Semua</option>
+                                    <option value="1">Sudah Surat Keterangan</option>
+                                    <option value="2">Belum Surat Keterangan</option>
+                                </select>
+                            </div>
 
+                            <div class="col-md-9">
+                                <br>
+                                <p>Berdasarkan rentang tanggal surat</p>
+                                <input type="date" class="form-control" name="start">
+                                <input type="date" class="form-control" name="end">
+                            </div>
+                        </div>
+                </div>
+                <hr>
+                <div class="form-group row justify-content-end">
+                    <input type="submit" name="" value="Cetak Laporan" class="btn btn-success" />
+                </div>
+                </form>
+            </div>
+
+            <br>
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">

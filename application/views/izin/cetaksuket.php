@@ -120,11 +120,7 @@
                                 <p>Demikian Surat ini kami buat untuk diketahui dan dipergunakan sebagaimana mestinya.</p>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <p><b><i>Wassalamu'alaikum Wr. Wb.</i></b></p>
-                            </td>
-                        </tr>
+
                     </table>
 
 

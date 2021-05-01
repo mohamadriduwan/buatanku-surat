@@ -30,7 +30,7 @@
             <div id="collapseOne" class="collapse col-md-9">
                 <div class="panel-body">
                     <hr>
-                    <form class="form-inline" action="<?php echo site_url('laporan/print_pdf/1') ?>" target="_blank" method="get">
+                    <form class="form-inline" action="<?php echo site_url('izin/laporansuratizin') ?>" target="_blank" method="get">
                         <div class="row">
                             <div class="col-md-9">
                                 <p>Berdasarkan status Surat</p>
@@ -44,14 +44,14 @@
                             <div class="col-md-9">
                                 <br>
                                 <p>Berdasarkan rentang tanggal surat</p>
-                                <input type="date" class="form-control" name="start">
-                                <input type="date" class="form-control" name="end">
+                                <input type="date" class="form-control" name="start" required>
+                                <input type="date" class="form-control" name="end" required>
                             </div>
                         </div>
                 </div>
                 <hr>
                 <div class="form-group row justify-content-end">
-                    <input type="submit" name="" value="Cetak Laporan" class="btn btn-success" />
+                    <input type="submit" name="cetak_laporan" value="Cetak Laporan" class="btn btn-success" />
                 </div>
                 </form>
             </div>

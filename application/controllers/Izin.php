@@ -274,4 +274,19 @@ class Izin extends CI_Controller
             redirect('izin/cetaksuket');
         }
     }
+
+    public function laporansuratizin()
+    {
+        $data['title'] = 'Surat Balasan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('laporan/laporansuratizin', $data);
+        } else {
+            $id = $this->input->post('id');
+
+            redirect('izin/suratbalasan');
+        }
+    }
 }

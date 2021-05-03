@@ -20,12 +20,14 @@ class Arsip extends CI_Controller
         $this->load->view('arsip/index', $data);
         $this->load->view('templates/footer');
     }
+
     public function suratmasuk()
     {
         $data['title'] = 'Surat Masuk';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $data['surat'] = $this->db->get('surat_masuk')->result_array();
+        $data['jenissurat'] = $this->db->get('jenis_surat')->result_array();
 
         $this->form_validation->set_rules('no_surat', 'No Surat', 'required');
         $this->form_validation->set_rules('tgl_surat', 'Tanggal Surat', 'required');
@@ -88,6 +90,7 @@ class Arsip extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $data['surat'] = $this->db->get('surat_masuk')->result_array();
+
         $this->form_validation->set_rules('id', 'Id', 'required');
         $balasid = $this->input->post('id');
         $old_image = $this->db->get_where('surat_masuk', ['id' => $balasid])->result_array();
@@ -128,5 +131,78 @@ class Arsip extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('arsip/disposisisurat', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function jenissurat()
+    {
+        $data['title'] = 'Jenis Surat';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['jenissurat'] = $this->db->get('jenis_surat')->result_array();
+
+        $this->form_validation->set_rules('jenis_surat', 'Jenis Surat', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('arsip/jenissurat', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->db->insert('jenis_surat', ['jenis_surat' => $this->input->post('jenis_surat')]);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New menu added!</div>');
+            redirect('arsip/jenissurat');
+        }
+    }
+    public function editjenissurat()
+    {
+        $data['title'] = 'Jenis Surat';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['jenissurat'] = $this->db->get('jenis_surat')->result_array();
+
+        $jenissurat = $this->input->post('jenis_surat');
+        $id = $this->input->post('id');
+
+        $this->form_validation->set_rules('jenis_surat', 'Jenis Surat', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('menu/index', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->db->set('jenis_surat', $jenissurat);
+            $this->db->where('id', $id);
+            $this->db->update('jenis_surat');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jenis Surat diEdit!</div>');
+            redirect('arsip/jenissurat');
+        }
+    }
+
+    public function deletjenissurat()
+    {
+        $data['title'] = 'Jenis Surat';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['jenissurat'] = $this->db->get('jenis_surat')->result_array();
+
+        $this->form_validation->set_rules('id', 'Id', 'required');
+
+        $id = $this->input->post('id');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('arsip/jenissurat', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $id = $this->input->post('id');
+            $this->db->delete('jenis_surat', ['id' => $id]);
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Jenis Surat telah diHapus!</div>');
+            redirect('arsip/jenissurat');
+        }
     }
 }

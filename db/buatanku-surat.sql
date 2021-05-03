@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2021 at 02:32 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.3.26
+-- Generation Time: May 03, 2021 at 02:46 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 7.3.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,56 @@ SET time_zone = "+00:00";
 --
 -- Database: `buatanku-surat`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jenis_surat`
+--
+
+CREATE TABLE `jenis_surat` (
+  `id` int(11) NOT NULL,
+  `jenis_surat` varchar(254) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jenis_surat`
+--
+
+INSERT INTO `jenis_surat` (`id`, `jenis_surat`) VALUES
+(1, 'Surat Undangan'),
+(2, 'Surat Perintah'),
+(3, 'Surat Keterangan');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_masuk`
+--
+
+CREATE TABLE `surat_masuk` (
+  `id` int(11) NOT NULL,
+  `no_surat` varchar(13) DEFAULT NULL,
+  `tgl_surat` date DEFAULT NULL,
+  `perihal` varchar(100) DEFAULT NULL,
+  `id_jenis_surat` int(5) DEFAULT NULL,
+  `pengirim` varchar(30) DEFAULT NULL,
+  `ditujukan` varchar(30) DEFAULT NULL,
+  `deskripsi` mediumtext DEFAULT NULL,
+  `id_petugas` int(11) UNSIGNED DEFAULT NULL,
+  `sifat_surat` enum('Rahasia','Penting','Segera','Biasa') DEFAULT NULL,
+  `status_disposisi` varchar(2) DEFAULT NULL,
+  `dibuat_pada` int(11) NOT NULL,
+  `berkas_surat` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `surat_masuk`
+--
+
+INSERT INTO `surat_masuk` (`id`, `no_surat`, `tgl_surat`, `perihal`, `id_jenis_surat`, `pengirim`, `ditujukan`, `deskripsi`, `id_petugas`, `sifat_surat`, `status_disposisi`, `dibuat_pada`, `berkas_surat`) VALUES
+(43, 'B-3532/Kk.13.', '2021-05-20', 'Surat Keterangan', NULL, 'Kepala Kemenag', 'Kepala Madrasah', '', 1, 'Biasa', '0', 1619989650, 'DSC_02942.JPG'),
+(44, 'B-3532/Kk.13.', '2021-05-03', 'Surat Keterangan', NULL, 'Kepala Kemenag', 'Kepala Madrasah', '', 1, 'Biasa', '0', 1619992642, '');
 
 -- --------------------------------------------------------
 
@@ -40,9 +90,13 @@ CREATE TABLE `surat_penelitian` (
   `prodi` varchar(50) NOT NULL,
   `no_hp` varchar(15) NOT NULL,
   `judul_skripsi` varchar(200) NOT NULL,
-  `tanggl_surat` date NOT NULL,
+  `tanggal_surat` date NOT NULL,
   `nomor_surat` varchar(128) NOT NULL,
   `keterangan` varchar(128) NOT NULL,
+  `no_suket` varchar(50) NOT NULL,
+  `tanggal_suket` date DEFAULT NULL,
+  `awal_penelitian` date DEFAULT NULL,
+  `akhir_penelitian` date DEFAULT NULL,
   `is_active` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -50,10 +104,9 @@ CREATE TABLE `surat_penelitian` (
 -- Dumping data for table `surat_penelitian`
 --
 
-INSERT INTO `surat_penelitian` (`id`, `penulis`, `asal_surat`, `tanggal_asal`, `nomor_asal`, `nama_mahasiswa`, `nim_mahasiswa`, `fakultas`, `jurusan`, `prodi`, `no_hp`, `judul_skripsi`, `tanggl_surat`, `nomor_surat`, `keterangan`, `is_active`) VALUES
-(3, 'Dekan', 'IAIN Tulungagung', '2021-04-17', 'B-034/In.12/F.II/TL.00/01/2021', 'Siti Lailatur Rosidah', '12204173007', '', 'Tadris Matematika', '', '085807230313', 'tes', '0000-00-00', '15', '', 0),
-(4, 'Dekan', 'IAIN Tulungagung', '2021-04-07', 'B-034/In.12/F.II/TL.00/01/2021', 'Lailatur Rosidah Samana', '12204173007', 'Usuludin', '', '', '085807230313', 'Masalah Yang berkelanjutan dengan meninggalnya pengangguran di era Soekarno', '0000-00-00', '16', '', 0),
-(5, 'Dekan', 'IAIN Kediri', '2021-04-15', 'B-055/In.12/F.II/TL.00/01/2021', 'Mohamad Riduwan', '1220417300755', 'Ekonomi', 'Manajemen', '', '08563637463', 'Masama jaya', '0000-00-00', '17', '', 0);
+INSERT INTO `surat_penelitian` (`id`, `penulis`, `asal_surat`, `tanggal_asal`, `nomor_asal`, `nama_mahasiswa`, `nim_mahasiswa`, `fakultas`, `jurusan`, `prodi`, `no_hp`, `judul_skripsi`, `tanggal_surat`, `nomor_surat`, `keterangan`, `no_suket`, `tanggal_suket`, `awal_penelitian`, `akhir_penelitian`, `is_active`) VALUES
+(19, 'Dekan', 'IAIN Tulungagung', '2021-05-01', 'B-034/In.12/F.II/TL.00/01/2021', 'Lailatur Rosidah', '12204173007', '', 'Tadris Matematika', '', '085807230313', 'Pengembangan yang berbau agama dengan kemanfaatan sosial sendiri', '2021-05-01', '031', '', '032', '2021-05-01', '2021-05-05', '2021-05-29', 1),
+(20, 'Dekan', 'IAIN Kediri', '2021-05-13', 'B-3794/In.12/F.II/TL.00/11/2020', 'Ani Ni\'matus Surur', '12204173007', '', 'Pendidikan Agama Islam', '', '08563637463', 'Pengampuan yang bersalah dengan semua orang yang bergabung', '2021-05-02', '016', '', '', NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -77,9 +130,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-(5, 'Mohamad Riduwan', 'riduwan.boban@gmail.com', '_DSC9855.jpg', '$2y$10$eqRcU5c/KwmBwXSuIp9Heu0A3oSlpNzcrb6ZND98QQ75G4R9yqhmW', 1, 1, 1552120289),
-(6, 'Doddy Ferdiansyah', 'doddy@gmail.com', 'profile.jpg', '$2y$10$FhGzXwwTWLN/yonJpDLR0.nKoeWlKWBoRG9bsk0jOAgbJ007XzeFO', 2, 1, 1552285263),
-(11, 'Sandhika Galih', 'sandhikagalih@gmail.com', 'default.jpg', '$2y$10$0QYEK1pB2L.Rdo.ZQsJO5eeTSpdzT7PvHaEwsuEyGSs0J1Qf5BoSq', 2, 1, 1553151354);
+(1, 'Mohamad Riduwan', 'riduwan.boban@gmail.com', '_DSC9855.jpg', '$2y$10$eqRcU5c/KwmBwXSuIp9Heu0A3oSlpNzcrb6ZND98QQ75G4R9yqhmW', 1, 1, 1552120289),
+(16, 'Mohamad Riduwan', 'guru1@guruku.com', 'default.jpg', '$2y$10$DuqJ0onCeeSdJ3gfUJZ9ZeFHnCV7/drifaNvuFvUvRnpEI6AspvjK', 2, 1, 1618983762);
 
 -- --------------------------------------------------------
 
@@ -100,9 +152,10 @@ CREATE TABLE `user_access_menu` (
 INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (1, 1, 1),
 (3, 2, 2),
-(8, 1, 2),
 (12, 1, 4),
-(14, 1, 3);
+(15, 1, 6),
+(16, 1, 3),
+(17, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -123,7 +176,8 @@ INSERT INTO `user_menu` (`id`, `menu`) VALUES
 (1, 'Admin'),
 (2, 'User'),
 (3, 'Menu'),
-(4, 'Izin');
+(4, 'Izin'),
+(6, 'Arsip');
 
 -- --------------------------------------------------------
 
@@ -169,10 +223,17 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (3, 2, 'Edit Profile', 'user/edit', 'fas fa-fw fa-user-edit', 1),
 (4, 3, 'Menu Management', 'menu', 'fas fa-fw fa-folder', 1),
 (5, 3, 'Submenu Management', 'menu/submenu', 'fas fa-fw fa-folder-open', 1),
-(7, 1, 'Role', 'admin/role', 'fas fa-fw fa-user-tie', 1),
+(7, 1, 'Role', 'admin/role', 'fas fa-fw fa-users-cog', 1),
 (8, 2, 'Change Password', 'user/changepassword', 'fas fa-fw fa-key', 1),
-(9, 4, 'Surat Balasan', 'izin', 'fas fa-file-export', 1),
-(10, 4, 'Surat Selesai', 'izin/selesai', 'fas fa-fw fa-envelope', 1);
+(9, 4, 'Dashboard Izin', 'izin', 'fas fa-fw fa-tachometer-alt', 1),
+(10, 4, 'Surat Balasan', 'izin/suratbalasan', 'fas fa-fw fa-file-export', 1),
+(11, 4, 'Surat Selesai', 'izin/selesai', 'fas fa-fw fa-envelope', 1),
+(12, 1, 'Pengguna', 'admin/pengguna', 'fas fa-fw fa-user-tie', 1),
+(14, 6, 'Dashboard Arsip', 'arsip', 'fas fa-fw fa-tachometer-alt', 1),
+(15, 6, 'Jenis Surat', 'arsip/jenissurat', 'fas fa-fw fa-clipboard-list', 1),
+(16, 6, 'Surat Masuk', 'arsip/suratmasuk', 'fas fa-fw fa-envelope-open-text', 1),
+(17, 6, 'Surat Keluar', 'arsip/suratkeluar', 'fas fa-fw far fa-paper-plane', 1),
+(18, 6, 'Disposisi Surat', 'arsip/disposisisurat', 'fas fa-fw far fa-share-square', 1);
 
 -- --------------------------------------------------------
 
@@ -190,6 +251,20 @@ CREATE TABLE `user_token` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `jenis_surat`
+--
+ALTER TABLE `jenis_surat`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `surat_masuk`
+--
+ALTER TABLE `surat_masuk`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_surat_masuk_jenis_surat1` (`id_jenis_surat`),
+  ADD KEY `fk_surat_masuk_petugas1` (`id_petugas`);
 
 --
 -- Indexes for table `surat_penelitian`
@@ -238,28 +313,40 @@ ALTER TABLE `user_token`
 --
 
 --
+-- AUTO_INCREMENT for table `jenis_surat`
+--
+ALTER TABLE `jenis_surat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `surat_masuk`
+--
+ALTER TABLE `surat_masuk`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
 -- AUTO_INCREMENT for table `surat_penelitian`
 --
 ALTER TABLE `surat_penelitian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user_role`
@@ -271,7 +358,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `user_token`

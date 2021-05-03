@@ -57,6 +57,7 @@
                                         <td><?= $iz['perihal']; ?></td>
                                         <td align="center">
                                             <?php if ($iz['berkas_surat'] == "") : ?>
+                                                (No File)
                                             <?php else : ?>
                                                 <a href="" class="btn btn-info btn-circle btn-sm" data-toggle="modal" data-target="#DisposisiSurat<?= $iz['id']; ?>">
                                                     <i class="fas fa-file"></i>
@@ -137,11 +138,9 @@
                             <label>Jenis Surat</label>
                             <select name="jenis_surat" class="form-control">
                                 <option value="" selected="selected">-- Jenis Surat --</option>
-                                <?php
-                                foreach ($jenis_surat as $list) {
-                                    echo '<option value="' . $list->id_jenis_surat . '">' . $list->jenis_surat . '</option>';
-                                }
-                                ?>
+                                <?php foreach ($jenissurat as $list) : ?>
+                                    <option value="<?= $list['id']; ?>"><?= $list['jenis_surat']; ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="form-group">
@@ -259,12 +258,10 @@ foreach ($surat as $iz) : $no++; ?>
                             <div class="form-group">
                                 <label>Jenis Surat</label>
                                 <select name="jenis_surat" class="form-control">
-                                    <option value="" selected="selected">-- Jenis Surat --</option>
-                                    <?php
-                                    foreach ($jenis_surat as $list) {
-                                        echo '<option value="' . $list->id_jenis_surat . '">' . $list->jenis_surat . '</option>';
-                                    }
-                                    ?>
+                                    <option value="<?= $iz['id_jenis_surat']; ?>" selected="selected"><?= $iz['id_jenis_surat']; ?></option>
+                                    <?php foreach ($jenissurat as $list) : ?>
+                                        <option value="<?= $list['id']; ?>"><?= $list['jenis_surat']; ?></option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="form-group">

@@ -7,6 +7,7 @@ class Izin extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Laporan_model');
     }
 
     public function index()
@@ -277,16 +278,22 @@ class Izin extends CI_Controller
 
     public function laporansuratizin()
     {
-        $data['title'] = 'Surat Balasan';
+        $data['title'] = 'Laporan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        if ($this->form_validation->run() == false) {
+        $tanggalawal = $this->input->get('start');
+        $tanggalakhir = $this->input->get('end');
+        $s_surat = $this->input->get('status_surat');
+
+
+        if ($s_surat == 1) {
+            $data['tabel'] = $this->Laporan_model->LaporanIzin($tanggalawal, $tanggalakhir);
             $this->load->view('templates/header', $data);
             $this->load->view('laporan/laporansuratizin', $data);
         } else {
-            $id = $this->input->post('id');
-
-            redirect('izin/suratbalasan');
+            $data['tabel'] = $this->Laporan_model->LaporanIzinSuket($tanggalawal, $tanggalakhir);
+            $this->load->view('templates/header', $data);
+            $this->load->view('laporan/laporansuratizin', $data);
         }
     }
 }

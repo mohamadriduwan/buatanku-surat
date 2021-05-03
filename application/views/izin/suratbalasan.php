@@ -25,7 +25,7 @@
                 <span class="icon text-white-50">
                     <i class="fas fa-file-pdf"></i>
                 </span>
-                <span class="text">Laporan Surat Balasan</span>
+                <span class="text">Laporan Surat Izin</span>
             </a>
             <div id="collapseOne" class="collapse col-md-9">
                 <div class="panel-body">
@@ -33,17 +33,16 @@
                     <form class="form-inline" action="<?php echo site_url('izin/laporansuratizin') ?>" target="_blank" method="get">
                         <div class="row">
                             <div class="col-md-9">
-                                <p>Berdasarkan status Surat</p>
+                                <p>Laporan Surat yang akan dicetak :</p>
                                 <select name="status_surat" class="form-control">
-                                    <option value="3" selected="selected">Semua</option>
-                                    <option value="1">Sudah Surat Keterangan</option>
-                                    <option value="2">Belum Surat Keterangan</option>
+                                    <option value="1">Surat Balasan Penelitian</option>
+                                    <option value="2">Surat Keterangan Penelitian</option>
                                 </select>
                             </div>
 
                             <div class="col-md-9">
                                 <br>
-                                <p>Berdasarkan rentang tanggal surat</p>
+                                <p>Berdasarkan rentang tanggal surat :</p>
                                 <input type="date" class="form-control" name="start" required>
                                 <input type="date" class="form-control" name="end" required>
                             </div>
@@ -67,11 +66,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Tgl. Surat Masuk</th>
                                     <th>Nama</th>
                                     <th>NIM</th>
                                     <th>No HP</th>
                                     <th>Universitas</th>
-                                    <th>Keterangan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -81,11 +80,11 @@
                                 <?php foreach ($izin as $iz) : ?>
                                     <tr>
                                         <th scope="row"><?= $i; ?></th>
+                                        <td><?= tanggal_indonesia($iz['tanggal_surat']); ?></td>
                                         <td><?= $iz['nama_mahasiswa']; ?></td>
                                         <td><?= $iz['nim_mahasiswa']; ?></td>
                                         <td><?= $iz['no_hp']; ?></td>
                                         <td><?= $iz['asal_surat']; ?></td>
-                                        <td><?= $iz['keterangan']; ?></td>
                                         <td>
                                             <a href="<?= base_url('izin/cetakbalasan/') . $iz['id']; ?>" target="_blank" class="badge badge-warning">Cetak Surat</a>
                                             <a href="" class="badge badge-success" data-toggle="modal" data-target="#EditBalasan<?= $iz['id']; ?>">Edit</a>

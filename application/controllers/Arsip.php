@@ -29,6 +29,7 @@ class Arsip extends CI_Controller
         $data['surat'] = $this->db->get('surat_masuk')->result_array();
         $data['jenissurat'] = $this->db->get('jenis_surat')->result_array();
 
+
         $this->form_validation->set_rules('no_surat', 'No Surat', 'required');
         $this->form_validation->set_rules('tgl_surat', 'Tanggal Surat', 'required');
         $this->form_validation->set_rules('perihal', 'Perihal Surat', 'required');

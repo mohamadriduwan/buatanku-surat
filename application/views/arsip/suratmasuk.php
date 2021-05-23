@@ -59,7 +59,7 @@
                                             <?php if ($iz['berkas_surat'] == "") : ?>
                                                 (No File)
                                             <?php else : ?>
-                                                <a href="" class="btn btn-info btn-circle btn-sm" data-toggle="modal" data-target="#DisposisiSurat<?= $iz['id']; ?>">
+                                                <a href="<?= base_url('assets/img/surat_masuk/'); ?><?= $iz['berkas_surat']; ?>" target="_blank" class="btn btn-info btn-circle btn-sm">
                                                     <i class="fas fa-file"></i>
                                                 </a>
                                             <?php endif; ?>
@@ -258,9 +258,10 @@ foreach ($surat as $iz) : $no++; ?>
                             <div class="form-group">
                                 <label>Jenis Surat</label>
                                 <select name="jenis_surat" class="form-control">
-                                    <option value="<?= $iz['id_jenis_surat']; ?>" selected="selected"><?= $iz['id_jenis_surat']; ?></option>
                                     <?php foreach ($jenissurat as $list) : ?>
-                                        <option value="<?= $list['id']; ?>"><?= $list['jenis_surat']; ?></option>
+                                        <option value="<?= $list['id']; ?>" <?php if ($list['id'] == $iz['id_jenis_surat']) {
+                                                                                echo 'selected="selected"';
+                                                                            }; ?>><?= $list['jenis_surat']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>

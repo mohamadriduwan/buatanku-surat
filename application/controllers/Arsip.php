@@ -72,6 +72,7 @@ class Arsip extends CI_Controller
                 'pengirim' => $this->input->post('pengirim'),
                 'ditujukan' => $this->input->post('ditujukan'),
                 'deskripsi' => $this->input->post('deskripsi'),
+                'id_jenis_surat' => $this->input->post('jenis_surat'),
                 'id_petugas' =>  1,
                 'sifat_surat' => $this->input->post('sifat_surat'),
                 'status_disposisi' => 0,
@@ -204,6 +205,77 @@ class Arsip extends CI_Controller
             $this->db->delete('jenis_surat', ['id' => $id]);
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Jenis Surat telah diHapus!</div>');
             redirect('arsip/jenissurat');
+        }
+    }
+
+    public function editsurat()
+    {
+        $data['title'] = 'Surat Masuk';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['surat'] = $this->db->get('surat_masuk')->result_array();
+
+        $this->form_validation->set_rules('no_surat', 'No Surat', 'required');
+        $this->form_validation->set_rules('tgl_surat', 'Tanggal Surat', 'required');
+        $this->form_validation->set_rules('perihal', 'Perihal Surat', 'required');
+
+        if ($this->form_validation->run() ==  false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('izin/selesai', $data);
+            $this->load->view('templates/footer');
+        } else {
+
+            $no_surat = $this->input->post('no_surat');
+            $tgl_surat = $this->input->post('tgl_surat');
+            $perihal = $this->input->post('perihal');
+            $id_jenis_surat = $this->input->post('id_jenis_surat');
+            $pengirim = $this->input->post('pengirim');
+            $ditujukan = $this->input->post('ditujukan');
+            $deskripsi = $this->input->post('deskripsi');
+            $id_petugas = 1;
+            $sifat_surat = $this->input->post('sifat_surat');
+            $jenis_surat = $this->input->post('jenis_surat');
+            $balasid = $this->input->post('id');
+
+
+            $upload_image = $_FILES['image']['name'];
+
+            if ($upload_image) {
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size']      = '2048';
+                $config['upload_path'] = './assets/img/surat_masuk/';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $old_image = $data['user']['image'];
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/img/surat_masuk/' . $old_image);
+                    }
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('berkas_surat', $new_image);
+                } else {
+                    echo $this->upload->dispay_errors();
+                }
+            }
+
+            $this->db->set('no_surat', $no_surat);
+            $this->db->set('tgl_surat', $tgl_surat);
+            $this->db->set('perihal', $perihal);
+            $this->db->set('id_jenis_surat', $id_jenis_surat);
+            $this->db->set('pengirim', $pengirim);
+            $this->db->set('ditujukan', $ditujukan);
+            $this->db->set('deskripsi', $deskripsi);
+            $this->db->set('id_petugas', $id_petugas);
+            $this->db->set('sifat_surat', $sifat_surat);
+            $this->db->set('id_jenis_surat', $jenis_surat);
+
+            $this->db->where('id', $balasid);
+            $this->db->update('surat_masuk');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Surat Masuk telah diEdit!</div>');
+            redirect('arsip/suratmasuk');
         }
     }
 }

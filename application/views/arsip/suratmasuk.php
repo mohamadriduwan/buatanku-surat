@@ -239,6 +239,7 @@ foreach ($surat as $iz) : $no++; ?>
                 <form action="<?= base_url('arsip/editsurat'); ?>" method="post">
                     <div class="row">
                         <div class="col-md-6">
+                            <input type="hidden" name="id" class="form-control" value="<?= $iz['id']; ?>">
                             <div class="form-group">
                                 <label>No. Surat</label>
                                 <input type="text" name="no_surat" class="form-control" value="<?= $iz['no_surat']; ?>">
@@ -291,10 +292,18 @@ foreach ($surat as $iz) : $no++; ?>
                                 <div class="form-group">
                                     <label>Sifat Surat</label>
                                     <select name="sifat_surat" class="form-control">
-                                        <option value="Rahasia">Rahasia</option>
-                                        <option value="Penting">Penting</option>
-                                        <option value="Segera">Segera</option>
-                                        <option value="Biasa" selected="selected">Biasa</option>
+                                        <option value="Rahasia" <?php if ($iz['sifat_surat'] == "Rahasia") {
+                                                                    echo 'selected="selected"';
+                                                                }; ?>>Rahasia</option>
+                                        <option value="Penting" <?php if ($iz['sifat_surat'] == "Penting") {
+                                                                    echo 'selected="selected"';
+                                                                }; ?>>Penting</option>
+                                        <option value="Segera" <?php if ($iz['sifat_surat'] == "Segera") {
+                                                                    echo 'selected="selected"';
+                                                                }; ?>>Segera</option>
+                                        <option value="Biasa" <?php if ($iz['sifat_surat'] == "Biasa") {
+                                                                    echo 'selected="selected"';
+                                                                }; ?>>Biasa</option>
 
                                     </select>
                                 </div>

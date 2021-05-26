@@ -70,12 +70,12 @@
                                                     <i class="fas fa-share-square"></i>
                                                 </a>
                                             <?php else : ?>
-                                                <a href="" class="btn btn-success btn-circle btn-sm" data-toggle="modal" data-target="#DisposisiSurat<?= $iz['id']; ?>">
+                                                <a href="" class="btn btn-success btn-circle btn-sm" data-toggle="modal" data-target="#">
                                                     <i class="fas fa-check"></i>
                                                 </a>
                                             <?php endif; ?>
                                         </td>
-                                        <td align="center">
+                                        <td align="center" width="100px">
                                             <a href="" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#<?= $iz['id']; ?>">
                                                 <i class="fas fa-search"></i>
                                             </a>
@@ -316,6 +316,83 @@ foreach ($surat as $iz) : $no++; ?>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
+<?php $no = 0;
+foreach ($surat as $iz) : $no++; ?>
+    <div class="modal fade bd-example-modal-lg" id="DisposisiSurat<?= $iz['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="DisposisiSuratLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DisposisiSuratLabel">Disposisi Surat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="form-group">
+
+                    <table class="table">
+                        <tr>
+                            <td width="25%">Nomor Urut</td>
+                            <td width="5%">:</td>
+                            <td><b><?= $no; ?></b></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal Surat</td>
+                            <td>:</td>
+                            <td><b><?= tanggal_indonesia($iz['tgl_surat']); ?></b></td>
+                        </tr>
+                        <tr>
+                            <td>Nomor Surat</td>
+                            <td>:</td>
+                            <td><b><?= $iz['no_surat']; ?></b></td>
+                        </tr>
+                        <tr>
+                            <td>Dari</td>
+                            <td>:</td>
+                            <td><b><?= $iz['pengirim']; ?></b></td>
+                        </tr>
+                        <tr>
+                            <td>Perihal</td>
+                            <td>:</td>
+                            <td><b><?= $iz['perihal']; ?></b></td>
+                        </tr>
+                    </table>
+                    <hr>
+                    <form action="<?= base_url('arsip/disposisi'); ?>" method="post">
+                        <div class="modal-body">
+                            <div class="form-group row">
+                                <input type="hidden" name="status_disposisi" class="form-control" value="1">
+                                <label for="disposisi" class="col-sm-3 col-form-label">Disposisi Kepada</label>
+                                <div class="col-sm-5">
+                                    <select name="disposisi" class="form-control">
+                                        <option value="" selected="selected">- Silahkan Pilih -</option>
+                                        <option value="Kurikulum">Waka Kurikulum</option>
+                                        <option value="Humas">Waka Humas</option>
+                                        <option value="Kesiswaan">Waka Kesiswaan</option>
+                                        <option value="Sarpras">Waka Sarpras</option>
+                                        <option value="Sarpras">Kepala Perpustakaan</option>
+                                        <option value="Sarpras">Kepala TU</option>
+                                        <option value="Sarpras">BP/BK</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="disposisi" class="col-sm-3 col-form-label">Instruksi</label>
+                                <div class="col-sm-7">
+                                    <textarea name="disposisi" class="form-control" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Disposisikan</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

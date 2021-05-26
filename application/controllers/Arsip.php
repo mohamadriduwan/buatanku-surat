@@ -278,4 +278,8 @@ class Arsip extends CI_Controller
             redirect('arsip/suratmasuk');
         }
     }
+
+    public function disposisi()
+    {
+    }
 }

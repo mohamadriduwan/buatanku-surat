@@ -223,7 +223,7 @@ class Arsip extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('izin/selesai', $data);
+            $this->load->view('arsip/suratmasuk', $data);
             $this->load->view('templates/footer');
         } else {
 
@@ -281,5 +281,54 @@ class Arsip extends CI_Controller
 
     public function disposisi()
     {
+        $data['title'] = 'Surat Masuk';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['surat'] = $this->db->get('surat_masuk')->result_array();
+
+        $this->form_validation->set_rules('disposisi_kepada', 'Disposisi Kepada', 'required');
+
+        if ($this->form_validation->run() ==  false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('arsip/suratmasuk', $data);
+            $this->load->view('templates/footer');
+        } else {
+
+            $status_disposisi = $this->input->post('status_disposisi');
+            $disposisi_kepada = $this->input->post('disposisi_kepada');
+            $instruksi = $this->input->post('instruksi');
+            $no_urut = $this->input->post('no_urut');
+            $balasid = $this->input->post('id');
+
+            $this->db->set('status_disposisi', $status_disposisi);
+            $this->db->set('disposisi_kepada', $disposisi_kepada);
+            $this->db->set('instruksi', $instruksi);
+            $this->db->set('no_urut', $no_urut);
+
+            $this->db->where('id', $balasid);
+            $this->db->update('surat_masuk');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Surat Masuk telah didisposisi!</div>');
+            redirect('arsip/cetakdisposisi/' . $balasid);
+        }
+    }
+
+    public function cetakdisposisi($id)
+    {
+
+        $data['title'] = 'Lembar Disposisi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['surat'] = $this->db->get_where('surat_masuk', ['id' => $id])->result_array();
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('arsip/cetakdisposisi', $data);
+        } else {
+            $id = $this->input->post('id');
+
+            redirect('arsip/cetakdisposisi');
+        }
     }
 }

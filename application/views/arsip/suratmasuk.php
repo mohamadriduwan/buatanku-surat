@@ -70,7 +70,7 @@
                                                     <i class="fas fa-share-square"></i>
                                                 </a>
                                             <?php else : ?>
-                                                <a href="" class="btn btn-success btn-circle btn-sm" data-toggle="modal" data-target="#">
+                                                <a href="<?= base_url('arsip/cetakdisposisi/') . $iz['id']; ?>" target="_blank" class="btn btn-success btn-circle btn-sm">
                                                     <i class="fas fa-check"></i>
                                                 </a>
                                             <?php endif; ?>
@@ -365,25 +365,27 @@ foreach ($surat as $iz) : $no++; ?>
                     <form action="<?= base_url('arsip/disposisi'); ?>" method="post">
                         <div class="modal-body">
                             <div class="form-group row">
+                                <input type="hidden" name="no_urut" class="form-control" value="<?= $no; ?>">
+                                <input type="hidden" name="id" class="form-control" value="<?= $iz['id']; ?>">
                                 <input type="hidden" name="status_disposisi" class="form-control" value="1">
-                                <label for="disposisi" class="col-sm-3 col-form-label">Disposisi Kepada</label>
+                                <label for="disposisi_kepada" class="col-sm-3 col-form-label">Disposisi Kepada</label>
                                 <div class="col-sm-5">
-                                    <select name="disposisi" class="form-control">
+                                    <select name="disposisi_kepada" class="form-control" required>
                                         <option value="" selected="selected">- Silahkan Pilih -</option>
-                                        <option value="Kurikulum">Waka Kurikulum</option>
-                                        <option value="Humas">Waka Humas</option>
-                                        <option value="Kesiswaan">Waka Kesiswaan</option>
-                                        <option value="Sarpras">Waka Sarpras</option>
-                                        <option value="Sarpras">Kepala Perpustakaan</option>
-                                        <option value="Sarpras">Kepala TU</option>
-                                        <option value="Sarpras">BP/BK</option>
+                                        <option value="Waka Kurikulum">Waka Kurikulum</option>
+                                        <option value="Waka Humas">Waka Humas</option>
+                                        <option value="Waka Kesiswaan">Waka Kesiswaan</option>
+                                        <option value="Waka Sarpras">Waka Sarpras</option>
+                                        <option value="Kepala Perpustakaan">Kepala Perpustakaan</option>
+                                        <option value="Kepala TU">Kepala TU</option>
+                                        <option value="BP/BK">BP/BK</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="disposisi" class="col-sm-3 col-form-label">Instruksi</label>
+                                <label for="instruksi" class="col-sm-3 col-form-label">Instruksi</label>
                                 <div class="col-sm-7">
-                                    <textarea name="disposisi" class="form-control" rows="2"></textarea>
+                                    <textarea name="instruksi" class="form-control" rows="2" required></textarea>
                                 </div>
                             </div>
                         </div>

@@ -26,6 +26,7 @@ class Arsip extends CI_Controller
         $data['title'] = 'Surat Masuk';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+
         $data['surat'] = $this->db->get('surat_masuk')->result_array();
         $data['jenissurat'] = $this->db->get('jenis_surat')->result_array();
 
@@ -73,7 +74,7 @@ class Arsip extends CI_Controller
                 'ditujukan' => $this->input->post('ditujukan'),
                 'deskripsi' => $this->input->post('deskripsi'),
                 'id_jenis_surat' => $this->input->post('jenis_surat'),
-                'id_petugas' =>  1,
+                'id_petugas' =>  $this->input->post('userid'),
                 'sifat_surat' => $this->input->post('sifat_surat'),
                 'status_disposisi' => 0,
                 'dibuat_pada' => time()
@@ -90,6 +91,7 @@ class Arsip extends CI_Controller
 
         $data['title'] = 'Surat Masuk';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
 
         $data['surat'] = $this->db->get('surat_masuk')->result_array();
 

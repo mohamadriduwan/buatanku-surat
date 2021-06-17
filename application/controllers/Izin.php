@@ -54,6 +54,19 @@ class Izin extends CI_Controller
             $this->load->view('izin/suratbalasan', $data);
             $this->load->view('templates/footer');
         } else {
+
+            $data2 = [
+                'no_surat' => $this->input->post('nomor_asal'),
+                'tgl_surat' => $this->input->post('tanggal_asal'),
+                'perihal' => "Surat Izin Penelitian",
+                'pengirim' => $this->input->post('penulis') . " " . $this->input->post('asal_surat'),
+                'ditujukan' => "Kepala Madrasah",
+                'sifat_surat' => "Biasa",
+                'status_disposisi' => 0,
+                'dibuat_pada' => time()
+
+            ];
+
             $data = [
                 'penulis' => $this->input->post('penulis'),
                 'asal_surat' => $this->input->post('asal_surat'),
@@ -71,6 +84,7 @@ class Izin extends CI_Controller
 
             ];
             $this->db->insert('surat_penelitian', $data);
+            $this->db->insert('surat_masuk', $data2);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New Surat Balasan added!</div>');
             redirect('izin/suratbalasan');
         }

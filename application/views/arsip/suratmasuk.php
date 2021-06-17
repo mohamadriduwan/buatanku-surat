@@ -120,6 +120,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>No. Surat</label>
+                            <input type="hidden" name="userid" class="form-control" value="<?= $user['id']; ?>">
                             <input type="text" name="no_surat" class="form-control">
                         </div>
 

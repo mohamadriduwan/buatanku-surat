@@ -47,7 +47,7 @@
 							<tr>
 								<td>Tgl. Masuk</td>
 								<td>:</td>
-								<td align="justify"><b><?= $iz['dibuat_pada']; ?><b></td>
+								<td align="justify"><b><?= tanggal_indonesia(date('Y-m-d', $user['date_created'])); ?><b></td>
 							</tr>
 
 						</table>

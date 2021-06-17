@@ -21,39 +21,6 @@
                 </span>
                 <span class="text">Tambah Surat Balasan</span>
             </a>
-            <a href="#collapseOne" class="btn btn-success btn-icon-split mb-3" data-toggle="collapse">
-                <span class="icon text-white-50">
-                    <i class="fas fa-file-pdf"></i>
-                </span>
-                <span class="text">Laporan Surat Izin</span>
-            </a>
-            <div id="collapseOne" class="collapse col-md-9">
-                <div class="panel-body">
-                    <hr>
-                    <form class="form-inline" action="<?php echo site_url('izin/laporansuratizin') ?>" target="_blank" method="get">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <p>Laporan Surat yang akan dicetak :</p>
-                                <select name="status_surat" class="form-control">
-                                    <option value="1">Surat Balasan Penelitian</option>
-                                    <option value="2">Surat Keterangan Penelitian</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-9">
-                                <br>
-                                <p>Berdasarkan rentang tanggal surat :</p>
-                                <input type="date" class="form-control" name="start" required>
-                                <input type="date" class="form-control" name="end" required>
-                            </div>
-                        </div>
-                </div>
-                <hr>
-                <div class="form-group row justify-content-end">
-                    <input type="submit" name="cetak_laporan" value="Cetak Laporan" class="btn btn-success" />
-                </div>
-                </form>
-            </div>
 
             <br>
 

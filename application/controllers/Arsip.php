@@ -333,4 +333,25 @@ class Arsip extends CI_Controller
             redirect('arsip/cetakdisposisi');
         }
     }
+
+    public function viewall($id)
+    {
+
+        $data['title'] = 'Surat Masuk';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->load->model('Menu_model');
+
+        $data['getsurat'] = $this->Menu_model->getSuratmasuk($id);
+        $data['surat'] = $this->db->get_where('surat_masuk', ['id' => $id])->result_array();
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('arsip/viewall', $data);
+        } else {
+            $id = $this->input->post('id');
+
+            redirect('arsip/vewall');
+        }
+    }
 }

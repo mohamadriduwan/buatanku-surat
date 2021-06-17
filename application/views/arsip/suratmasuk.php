@@ -76,7 +76,7 @@
                                             <?php endif; ?>
                                         </td>
                                         <td align="center" width="100px">
-                                            <a href="" class="btn btn-primary btn-circle btn-sm" data-toggle="modal" data-target="#<?= $iz['id']; ?>">
+                                            <a href="<?= base_url('arsip/viewall/') . $iz['id']; ?>" class="btn btn-primary btn-circle btn-sm">
                                                 <i class="fas fa-search"></i>
                                             </a>
 

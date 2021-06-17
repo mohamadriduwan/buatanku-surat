@@ -20,4 +20,14 @@ class Menu_model extends CI_Model
                 ";
         return $this->db->query($query)->result_array();
     }
+
+    public function getSuratMasuk($id)
+    {
+        $query = "SELECT `surat_masuk`.*, `jenis_surat`.`jenis_surat`
+                  FROM `surat_masuk` JOIN `jenis_surat`
+                  ON `surat_masuk`.`id_jenis_surat` = `jenis_surat`.`id`
+                  WHERE `surat_masuk`.`id` = $id
+                ";
+        return $this->db->query($query)->result_array();
+    }
 }

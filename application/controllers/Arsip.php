@@ -113,17 +113,6 @@ class Arsip extends CI_Controller
         }
     }
 
-    public function suratkeluar()
-    {
-        $data['title'] = 'Surat Keluar';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('surat/suratkeluar', $data);
-        $this->load->view('templates/footer');
-    }
 
     public function disposisisurat()
     {
@@ -352,6 +341,71 @@ class Arsip extends CI_Controller
             $id = $this->input->post('id');
 
             redirect('arsip/vewall');
+        }
+    }
+
+    public function suratkeluar()
+    {
+        $data['title'] = 'Surat Keluar';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+
+        $data['surat'] = $this->db->get('surat_keluar')->result_array();
+        $data['jenissurat'] = $this->db->get('jenis_surat')->result_array();
+
+
+        $this->form_validation->set_rules('no_surat', 'No Surat', 'required');
+        $this->form_validation->set_rules('tgl_surat', 'Tanggal Surat', 'required');
+        $this->form_validation->set_rules('perihal', 'Perihal Surat', 'required');
+
+
+        if ($this->form_validation->run() ==  false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('arsip/suratkeluar', $data);
+            $this->load->view('templates/footer');
+        } else {
+
+            $upload_image = $_FILES['image']['name'];
+
+            if ($upload_image) {
+                $config['allowed_types'] = 'gif|jpg|png|pdf';
+                $config['max_size']      = '2048';
+                $config['upload_path'] = './assets/img/surat_keluar/';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $old_image = $data['surat_masuk']['berkas_surat'];
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/img/surat_keluar/' . $old_image);
+                    }
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('berkas_surat', $new_image);
+                } else {
+                    echo $this->upload->dispay_errors();
+                }
+            }
+
+            $data = [
+                'no_surat' => $this->input->post('no_surat'),
+                'tgl_surat' => $this->input->post('tgl_surat'),
+                'perihal' => $this->input->post('perihal'),
+                'id_jenis_surat' => $this->input->post('id_jenis_surat'),
+                'pengirim' => $this->input->post('pengirim'),
+                'ditujukan' => $this->input->post('ditujukan'),
+                'deskripsi' => $this->input->post('deskripsi'),
+                'id_jenis_surat' => $this->input->post('jenis_surat'),
+                'id_petugas' =>  $this->input->post('userid'),
+                'sifat_surat' => $this->input->post('sifat_surat'),
+                'status_disposisi' => 0,
+                'dibuat_pada' => time()
+            ];
+
+            $this->db->insert('surat_keluar', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Surat Keluar ditambahkan!</div>');
+            redirect('arsip/suratkeluar');
         }
     }
 }

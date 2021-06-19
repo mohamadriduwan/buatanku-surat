@@ -51,21 +51,21 @@
                                     <tr>
                                         <th scope="row"><?= $i; ?></th>
                                         <td><?= date('d/m/Y', $iz['dibuat_pada']); ?></td>
-                                        <td><?= $iz['no_surat']; ?></td>
+                                        <td>MTs.M/609/PP.00.5/<?= $iz['no_surat']; ?>/<?= getRomawi(date('m', $iz['dibuat_pada'])); ?>/<?= date('Y', $iz['dibuat_pada']); ?></td>
                                         <td><?= $iz['perihal']; ?></td>
                                         <td><?= $iz['ditujukan']; ?></td>
                                         <td align="center">
                                             <?php if ($iz['berkas_surat'] == "") : ?>
                                                 (No File)
                                             <?php else : ?>
-                                                <a href="<?= base_url('assets/img/surat_masuk/'); ?><?= $iz['berkas_surat']; ?>" target="_blank" class="btn btn-info btn-circle btn-sm">
+                                                <a href="<?= base_url('assets/img/surat_keluar/'); ?><?= $iz['berkas_surat']; ?>" target="_blank" class="btn btn-info btn-circle btn-sm">
                                                     <i class="fas fa-file"></i>
                                                 </a>
                                             <?php endif; ?>
                                         </td>
 
                                         <td align="center" width="100px">
-                                            <a href="<?= base_url('arsip/viewall/') . $iz['id']; ?>" class="btn btn-primary btn-circle btn-sm">
+                                            <a href="<?= base_url('arsip/viewallsuratkeluar/') . $iz['id']; ?>" class="btn btn-primary btn-circle btn-sm">
                                                 <i class="fas fa-search"></i>
                                             </a>
 
@@ -97,14 +97,14 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" style="padding: 10px 20px;">
             <div class="modal-header">
-                <h5 class="modal-title" id="tambahSurat">Tambah Surat Masuk</h5>
+                <h5 class="modal-title" id="tambahSurat">Tambah Surat Keluar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <br>
-            <?= form_open_multipart('arsip/suratmasuk'); ?>
-            <form action="<?= base_url('arsip/suratmasuk'); ?>" method="post">
+            <?= form_open_multipart('arsip/suratkeluar'); ?>
+            <form action="<?= base_url('arsip/suratkeluar'); ?>" method="post">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -116,13 +116,6 @@
                         <div class="form-group">
                             <label>Perihal</label>
                             <input type="text" name="perihal" class="form-control">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Tanggal Surat</label>
-                            <div class="input-group">
-                                <input type="date" name="tgl_surat" id="inputTglSurat" class="form-control">
-                            </div>
                         </div>
                         <div class="form-group">
                             <label>Jenis Surat</label>
@@ -188,13 +181,13 @@ foreach ($surat as $iz) : $no++; ?>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="DeletSuratLabel">Hapus Surat Masuk</h5>
+                    <h5 class="modal-title" id="DeletSuratLabel">Hapus Surat Keluar</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
-                <form action="<?= base_url('arsip/deletsuratmasuk'); ?>" method="post">
+                <form action="<?= base_url('arsip/deletsuratkeluar'); ?>" method="post">
                     <div class="modal-body">
                         <p>Anda yakin untuk menghapus Surat Masuk Nomor <strong><?= $iz['no_surat']; ?></strong>?</p>
                         <div class="form-group">
@@ -225,8 +218,8 @@ foreach ($surat as $iz) : $no++; ?>
                     </button>
                 </div>
                 <br>
-                <?= form_open_multipart('arsip/editsurat'); ?>
-                <form action="<?= base_url('arsip/editsurat'); ?>" method="post">
+                <?= form_open_multipart('arsip/editsuratkeluar'); ?>
+                <form action="<?= base_url('arsip/editsuratkeluar'); ?>" method="post">
                     <div class="row">
                         <div class="col-md-6">
                             <input type="hidden" name="id" class="form-control" value="<?= $iz['id']; ?>">
@@ -240,12 +233,7 @@ foreach ($surat as $iz) : $no++; ?>
                                 <input type="text" name="perihal" class="form-control" value="<?= $iz['perihal']; ?>">
                             </div>
 
-                            <div class=" form-group">
-                                <label>Tanggal Surat</label>
-                                <div class="input-group">
-                                    <input type="date" name="tgl_surat" id="inputTglSurat" class="form-control" value="<?= $iz['tgl_surat']; ?>">
-                                </div>
-                            </div>
+
                             <div class="form-group">
                                 <label>Jenis Surat</label>
                                 <select name="jenis_surat" class="form-control">

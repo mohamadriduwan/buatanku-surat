@@ -24,6 +24,7 @@
 
 </head>
 <?php
+date_default_timezone_set("Asia/Jakarta");
 function tanggal_indonesia($tanggal)
 {
     $bulan = array(

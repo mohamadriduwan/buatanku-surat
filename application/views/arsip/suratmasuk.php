@@ -118,9 +118,16 @@
             <form action="<?= base_url('arsip/suratmasuk'); ?>" method="post">
                 <div class="row">
                     <div class="col-md-6">
+                        <input type="hidden" name="petugas" class="form-control" value="<?= $user['id']; ?>">
+                        <div class="form-group">
+                            <label>Tanggal Diterima</label>
+                            <div class="input-group">
+                                <input type="date" name="dibuat_pada" id="dibuat_pada" class="form-control" value="<?= date('Y-m-d', time()); ?>">
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label>No. Surat</label>
-                            <input type="hidden" name="userid" class="form-control" value="<?= $user['id']; ?>">
                             <input type="text" name="no_surat" class="form-control">
                         </div>
 
@@ -144,12 +151,13 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label>Pengirim</label>
                             <input type="text" name="pengirim" class="form-control">
                         </div>
-                    </div>
-                    <div class="col-md-6">
+
                         <div class="form-group">
                             <label>Ditujukan</label>
                             <input type="text" name="ditujukan" class="form-control">
@@ -241,6 +249,10 @@ foreach ($surat as $iz) : $no++; ?>
                     <div class="row">
                         <div class="col-md-6">
                             <input type="hidden" name="id" class="form-control" value="<?= $iz['id']; ?>">
+                            <div class=" form-group">
+                                <label>tanggal diterima</label>
+                                <input type="date" name="perihal" class="form-control" value="<?= date('Y-m-d', $iz['dibuat_pada']); ?>">
+                            </div>
                             <div class="form-group">
                                 <label>No. Surat</label>
                                 <input type="text" name="no_surat" class="form-control" value="<?= $iz['no_surat']; ?>">
@@ -267,12 +279,13 @@ foreach ($surat as $iz) : $no++; ?>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Pengirim</label>
                                 <input type="text" name="pengirim" class="form-control" value="<?= $iz['pengirim']; ?>">
                             </div>
-                        </div>
-                        <div class="col-md-6">
+
                             <div class="form-group">
                                 <label>Ditujukan</label>
                                 <input type="text" name="ditujukan" class="form-control" value="<?= $iz['ditujukan']; ?>">

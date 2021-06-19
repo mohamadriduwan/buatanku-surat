@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 18, 2021 at 05:13 AM
+-- Generation Time: Jun 19, 2021 at 04:13 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.3.27
 
@@ -50,7 +50,6 @@ INSERT INTO `jenis_surat` (`id`, `jenis_surat`) VALUES
 CREATE TABLE `surat_keluar` (
   `id` int(11) NOT NULL,
   `no_surat` varchar(130) DEFAULT NULL,
-  `tgl_surat` date DEFAULT NULL,
   `perihal` varchar(256) DEFAULT NULL,
   `id_jenis_surat` int(5) DEFAULT NULL,
   `pengirim` varchar(256) DEFAULT NULL,
@@ -67,10 +66,9 @@ CREATE TABLE `surat_keluar` (
 -- Dumping data for table `surat_keluar`
 --
 
-INSERT INTO `surat_keluar` (`id`, `no_surat`, `tgl_surat`, `perihal`, `id_jenis_surat`, `pengirim`, `ditujukan`, `deskripsi`, `id_petugas`, `sifat_surat`, `dibuat_pada`, `berkas_surat`, `no_urut`) VALUES
-(43, 'B-3532/jjsh12', '2021-05-20', 'Surat Memohon Izin Menggunakan Auditorium untuk digunakan mengaji bersama andalan', 2, 'Kepala Kemenag', 'Kepala Madrasah', '', 1, 'Segera', 1619989650, 'images.jpg', '1'),
-(44, 'B-3532/Kk.13.00/MTs.M/V/2021', '2021-05-03', 'Surat Keterangan', 3, 'Kepala Kemenag', 'Kepala Madrasah', '', 1, 'Penting', 1619992642, '1f3920e722fa59abbe6365d482d595e0.jpg', '2'),
-(51, 'B-3532/Kk.13.3/2/PP.00/03/2021', '2021-05-20', 'Surat Keterangan', 2, 'Kepala Kantor Pendidikan Madrasah', 'Kepala Madrasah', '', 1, 'Biasa', 1622286421, '', '');
+INSERT INTO `surat_keluar` (`id`, `no_surat`, `perihal`, `id_jenis_surat`, `pengirim`, `ditujukan`, `deskripsi`, `id_petugas`, `sifat_surat`, `dibuat_pada`, `berkas_surat`, `no_urut`) VALUES
+(44, '023', 'Surat Keterangan', 3, 'Kepala Kemenag', 'Kepala Madrasah', '', 1, 'Penting', 1619992642, '1f3920e722fa59abbe6365d482d595e0.jpg', '2'),
+(51, '024', 'Surat Keterangan', 2, 'Kepala Kantor Pendidikan Madrasah', 'Kepala Madrasah', '', 1, 'Biasa', 1622286421, '', '');
 
 -- --------------------------------------------------------
 
@@ -102,9 +100,9 @@ CREATE TABLE `surat_masuk` (
 --
 
 INSERT INTO `surat_masuk` (`id`, `no_surat`, `tgl_surat`, `perihal`, `id_jenis_surat`, `pengirim`, `ditujukan`, `deskripsi`, `id_petugas`, `sifat_surat`, `status_disposisi`, `dibuat_pada`, `berkas_surat`, `disposisi_kepada`, `instruksi`, `no_urut`) VALUES
-(43, 'B-3532/jjsh12', '2021-05-20', 'Surat Memohon Izin Menggunakan Auditorium untuk digunakan mengaji bersama andalan', 2, 'Kepala Kemenag', 'Kepala Madrasah', '', 1, 'Segera', '1', 1619989650, 'images.jpg', 'Waka Kurikulum', 'Mohon ditindak lanjuti', '1'),
-(44, 'B-3532/Kk.13.00/MTs.M/V/2021', '2021-05-03', 'Surat Keterangan', 3, 'Kepala Kemenag', 'Kepala Madrasah', '', 1, 'Penting', '1', 1619992642, '1f3920e722fa59abbe6365d482d595e0.jpg', 'Waka Kurikulum', 'Mohon di lakukan', '2'),
-(51, 'B-3532/Kk.13.3/2/PP.00/03/2021', '2021-05-20', 'Surat Keterangan', 2, 'Kepala Kantor Pendidikan Madrasah', 'Kepala Madrasah', '', 1, 'Biasa', '0', 1622286421, '', '', '', '');
+(43, 'B-3532/jjsh12', '2021-05-20', 'Surat Memohon Izin Menggunakan Auditorium untuk digunakan mengaji bersama andalan', 2, 'Kepala Kemenag', 'Kepala Madrasah', '', 1, 'Segera', '1', 1619989650, 'images.jpg', 'Kepala Perpustakaan', 'Lanjutkan', '1'),
+(53, 'B-123/H.0012/LM/12/2012', '2021-06-11', 'Surat Undangan', 1, 'Dekan IAIN Tulungagung', 'Kepala Madrasah', '', NULL, 'Segera', '0', 1623967200, '', '', '', ''),
+(54, 'B-123/H.0012/LM/12/2334', '2021-06-04', 'Surat Undangan', 1, 'Kepala Madrasah', 'Kepala Madrasah', '', 0, 'Biasa', '0', 1623967200, '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -166,7 +164,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
 (1, 'Mohamad Riduwan', 'riduwan.boban@gmail.com', '_DSC9855.jpg', '$2y$10$eqRcU5c/KwmBwXSuIp9Heu0A3oSlpNzcrb6ZND98QQ75G4R9yqhmW', 1, 1, 1552120289),
-(16, 'Mohamad Riduwan', 'guru1@guruku.com', 'default.jpg', '$2y$10$DuqJ0onCeeSdJ3gfUJZ9ZeFHnCV7/drifaNvuFvUvRnpEI6AspvjK', 2, 1, 1618983762);
+(16, 'Mohamad Riduwan', 'guru1@guruku.com', 'default.jpg', '$2y$10$DuqJ0onCeeSdJ3gfUJZ9ZeFHnCV7/drifaNvuFvUvRnpEI6AspvjK', 2, 1, 1618983762),
+(17, 'ALFATIH', 'riduwan@madrasah.com', 'default.jpg', '$2y$10$d0boppkHay76PbCfETPw4uWtTcs1n4iStOdRqZqsRGvyN5wthJFT2', 2, 1, 1624032848);
 
 -- --------------------------------------------------------
 
@@ -188,7 +187,9 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (1, 1, 1),
 (3, 2, 2),
 (15, 1, 6),
-(26, 1, 4);
+(26, 1, 4),
+(27, 2, 4),
+(28, 2, 6);
 
 -- --------------------------------------------------------
 
@@ -363,13 +364,13 @@ ALTER TABLE `jenis_surat`
 -- AUTO_INCREMENT for table `surat_keluar`
 --
 ALTER TABLE `surat_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `surat_masuk`
 --
 ALTER TABLE `surat_masuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `surat_penelitian`
@@ -381,13 +382,13 @@ ALTER TABLE `surat_penelitian`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `user_menu`

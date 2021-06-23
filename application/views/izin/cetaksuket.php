@@ -1,18 +1,17 @@
 <?php foreach ($izin as $iz) : ?>
-    <div class="surat-buatan2">
+    <div style="text-align:justify ; font-size:20px ; color:black ; font-family: Times New Roman ; line-height: 40px">
         <center>
             <div class="card-body">
                 <table>
-                    <br>
-                    <tr>
-                        <td><img src="<?= base_url('assets/img/profile/KOPBOS.jpg'); ?>" width="100%"></td>
-                    </tr>
+                    <td>
+                        <center><img src="<?= base_url('assets/img/profile/KOPBOS.jpg'); ?>" width="95%"></center>
+                    </td>
 
-                    <table class="surat-buatan2" width="80%" border="0" cellpadding="0" style="text-align:center">
+                    <table class="surat-buatan2" width="80%" border="0" style="text-align:center ; font-size:20px ; color:black ; font-family: Times New Roman">
                         <br>
                         <br>
                         <tr>
-                            <td style="font-size: 22pt">
+                            <td style="font-size: 26pt ; line-height: 10px">
                                 <b><u>
                                         SURAT KETERANGAN
                                     </u></b>
@@ -24,7 +23,6 @@
                             </td>
                         </tr>
                     </table>
-                    <br>
                     <br>
                     <br>
                     <table width="80%" border="0" style="text-align:justify">

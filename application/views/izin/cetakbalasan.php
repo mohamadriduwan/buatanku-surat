@@ -1,20 +1,23 @@
 <?php foreach ($izin as $iz) : ?>
-    <div class="surat-buatan2">
+    <div style="text-align:justify ; font-size:20px ; color:black ; font-family: Times New Roman">
         <center>
             <div class="card-body">
                 <table>
-                    <br>
                     <tr>
-                        <td><img src="<?= base_url('assets/img/profile/KOPBOS.jpg'); ?>" width="100%"></td>
+                        <td>
+                            <center><img src="<?= base_url('assets/img/profile/KOPBOS.jpg'); ?>" width="95%"></center>
+                        </td>
                     </tr>
 
 
-                    <table class="surat-buatan2" width="80%" border="0" style="text-align:justify">
+                    <table class="surat-buatan2" width="80%" border="0" style="text-align:justify ; font-size:20px ; color:black ; font-family: Times New Roman">
+                        <tr>
+                            <td colspan="2" height="5px"></td>
+                        </tr>
+
                         <tr>
                             <td>Nomor</td>
                             <td>: MTsM/609/PP.00.5/<?= $iz['nomor_surat']; ?>/<?= getRomawi(date('m', strtotime($iz['tanggal_surat']))); ?>/<?= date('Y', strtotime($iz['tanggal_surat'])); ?></td>
-
-
                         </tr>
                         <tr>
                             <td>Lamp</td>
@@ -41,9 +44,7 @@
                         <tr>
                             <td colspan=2>di</td>
                         </tr>
-                        <tr>
-                            <td colspan=2>&nbsp;</td>
-                        </tr>
+
                         <tr>
                             <td width="10%"></td>
                             <td>Tempat</td>
@@ -59,7 +60,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <p>Sehubungan dengan surat Bapak/Ibu pada tanggal <?= tanggal_indonesia($iz['tanggal_asal']); ?>
+                                <p>Sehubungan dengan surat dari Bapak/Ibu <?= $iz['penulis']; ?> pada tanggal <?= tanggal_indonesia($iz['tanggal_asal']); ?>
                                     Nomor <?= $iz['nomor_asal']; ?> perihal perizinan tempat penelitian
                                     dalam rangka penyusunan Skripsi Mahasiswa/Mahasiswi :</p>
                             </td>
@@ -160,7 +161,7 @@
                         </tr>
                         <tr>
                             <td class="text"></td>
-                            <td class="text"><b>FARUQ RIFQI, S.Pd.</b></td>
+                            <td class="text"><b><u>FARUQ RIFQI, S.Pd.<u></b></td>
                         </tr>
                     </table>
         </center>

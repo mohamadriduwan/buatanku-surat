@@ -1,15 +1,17 @@
 <?php foreach ($surat as $iz) : ?>
-    <div class="surat-buatan2">
+    <div linespacing="50px" style="text-align:justify ; font-size:20px ; color:black ; font-family: Times New Roman">
         <center>
             <div class="card-body">
                 <table>
                     <br>
                     <tr>
-                        <td><img src="<?= base_url('assets/img/profile/KOPBOS.jpg'); ?>" width="100%"></td>
+                        <td>
+                            <center><img src="<?= base_url('assets/img/profile/KOPBOS.jpg'); ?>" width="95%"></center>
+                        </td>
                     </tr>
                 </table>
                 <br>
-                <table class="surat-buatan2" width="80%" border="1" style="text-align:justify">
+                <table class="surat-buatan2" width="90%" border="1" style="text-align:justify">
                     <tr>
                         <td height="50px" align="center"><b>LEMBAR DISPOSISI</b></td>
                     </tr>
@@ -64,7 +66,7 @@
                         <td align="center" height="50px"><b>ISI DISPOSISI / INSTRUKSI</b></td>
                     </tr>
                     <tr>
-                        <td align="center" height="500px"><b><?= $iz['instruksi']; ?></b></td>
+                        <td valign="top" align="center" height="500px"><b><br><?= $iz['instruksi']; ?></b></td>
                     </tr>
                 </table>
                 <br>

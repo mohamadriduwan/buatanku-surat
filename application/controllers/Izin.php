@@ -30,7 +30,7 @@ class Izin extends CI_Controller
         $data['title'] = 'Surat Balasan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $data['izin'] = $this->db->get('surat_penelitian')->result_array();
+        $data['izin'] = $this->db->order_by('tanggal_surat', 'DESC')->get('surat_penelitian')->result_array();
 
         $this->form_validation->set_rules('penulis', 'penulis', 'required');
         $this->form_validation->set_rules('asal_surat', 'asal_surat', 'required');

@@ -57,10 +57,6 @@ class Arsip extends CI_Controller
                 $this->load->library('upload', $config);
 
                 if ($this->upload->do_upload('image')) {
-                    $old_image = $data['surat_masuk']['berkas_surat'];
-                    if ($old_image != 'default.jpg') {
-                        unlink(FCPATH . 'assets/img/surat_masuk/' . $old_image);
-                    }
                     $new_image = $this->upload->data('file_name');
                     $this->db->set('berkas_surat', $new_image);
                 } else {
@@ -100,7 +96,7 @@ class Arsip extends CI_Controller
 
         $this->form_validation->set_rules('id', 'Id', 'required');
         $balasid = $this->input->post('id');
-        $old_image = $this->db->get_where('surat_masuk', ['id' => $balasid])->result_array();
+        $data['berkas'] = $this->db->get_where('surat_masuk', ['id' => $balasid])->row_array();
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -109,8 +105,13 @@ class Arsip extends CI_Controller
             $this->load->view('arsip/suratmasuk', $data);
             $this->load->view('templates/footer');
         } else {
+            $old_image = $data['berkas']['berkas_surat'];
+            if ($old_image != "") {
+                var_dump($old_image);
+                unlink(FCPATH . 'assets/img/surat_masuk/' . $old_image);
+            }
+
             $this->db->delete('surat_masuk', ['id' => $balasid]);
-            unlink(base_url('assets/img/surat_masuk/' . $old_image['berkas_surat']));
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Surat Masuk berhasil dihapus!</div>');
             redirect('arsip/suratmasuk');
         }
@@ -236,7 +237,7 @@ class Arsip extends CI_Controller
             $jenis_surat = $this->input->post('jenis_surat');
             $balasid = $this->input->post('id');
 
-
+            $data['berkas'] = $this->db->get_where('surat_masuk', ['id' => $balasid])->row_array();
             $upload_image = $_FILES['image']['name'];
 
             if ($upload_image) {
@@ -247,8 +248,8 @@ class Arsip extends CI_Controller
                 $this->load->library('upload', $config);
 
                 if ($this->upload->do_upload('image')) {
-                    $old_image = $data['user']['image'];
-                    if ($old_image != 'default.jpg') {
+                    $old_image = $data['berkas']['berkas_surat'];
+                    if ($old_image != '') {
                         unlink(FCPATH . 'assets/img/surat_masuk/' . $old_image);
                     }
                     $new_image = $this->upload->data('file_name');
@@ -382,10 +383,7 @@ class Arsip extends CI_Controller
                 $this->load->library('upload', $config);
 
                 if ($this->upload->do_upload('image')) {
-                    $old_image = $data['surat_masuk']['berkas_surat'];
-                    if ($old_image != 'default.jpg') {
-                        unlink(FCPATH . 'assets/img/surat_keluar/' . $old_image);
-                    }
+
                     $new_image = $this->upload->data('file_name');
                     $this->db->set('berkas_surat', $new_image);
                 } else {
@@ -422,7 +420,7 @@ class Arsip extends CI_Controller
 
         $this->form_validation->set_rules('id', 'Id', 'required');
         $balasid = $this->input->post('id');
-        $old_image = $this->db->get_where('surat_keluar', ['id' => $balasid])->result_array();
+        $data['berkas'] = $this->db->get_where('surat_keluar', ['id' => $balasid])->row_array();
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -431,8 +429,12 @@ class Arsip extends CI_Controller
             $this->load->view('arsip/suratmasuk', $data);
             $this->load->view('templates/footer');
         } else {
+            $old_image = $data['berkas']['berkas_surat'];
+            if ($old_image != "") {
+                var_dump($old_image);
+                unlink(FCPATH . 'assets/img/surat_keluar/' . $old_image);
+            }
             $this->db->delete('surat_keluar', ['id' => $balasid]);
-            unlink(base_url('assets/img/surat_keluar/' . $old_image['berkas_surat']));
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Surat Keluar berhasil dihapus!</div>');
             redirect('arsip/suratkeluar');
         }
@@ -466,6 +468,7 @@ class Arsip extends CI_Controller
             $jenis_surat = $this->input->post('jenis_surat');
             $balasid = $this->input->post('id');
 
+            $data['berkas'] = $this->db->get_where('surat_keluar', ['id' => $balasid])->row_array();
 
             $upload_image = $_FILES['image']['name'];
 
@@ -477,7 +480,7 @@ class Arsip extends CI_Controller
                 $this->load->library('upload', $config);
 
                 if ($this->upload->do_upload('image')) {
-                    $old_image = $data['user']['image'];
+                    $old_image = $data['berkas']['berkas_surat'];
                     if ($old_image != 'default.jpg') {
                         unlink(FCPATH . 'assets/img/surat_keluar/' . $old_image);
                     }

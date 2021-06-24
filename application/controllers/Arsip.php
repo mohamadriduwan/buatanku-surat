@@ -107,7 +107,6 @@ class Arsip extends CI_Controller
         } else {
             $old_image = $data['berkas']['berkas_surat'];
             if ($old_image != "") {
-                var_dump($old_image);
                 unlink(FCPATH . 'assets/img/surat_masuk/' . $old_image);
             }
 
@@ -431,7 +430,6 @@ class Arsip extends CI_Controller
         } else {
             $old_image = $data['berkas']['berkas_surat'];
             if ($old_image != "") {
-                var_dump($old_image);
                 unlink(FCPATH . 'assets/img/surat_keluar/' . $old_image);
             }
             $this->db->delete('surat_keluar', ['id' => $balasid]);
